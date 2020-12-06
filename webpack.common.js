@@ -9,7 +9,25 @@ module.exports = {
     },
     output:{
         path: path.resolve(__dirname, "public"),
-        filename: "js/[name].bundle.js"
+        filename: "js/[name].[hash].bundle.js"
+    },
+    module: {
+        rules: [
+            {
+                enforce: "pre",
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: "eslint-loader",
+                options: {
+                    fix: true,
+                },
+              },
+            {
+              test: /\.js$/,
+              exclude: /node_modules/,
+              loader: "babel-loader",
+            }
+        ]
     },
     plugins: [
         new CleanWebpackPlugin(),
